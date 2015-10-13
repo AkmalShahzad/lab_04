@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+
+AeroFighter
+
+</title>
+
+
+
+       <script type="text/javascript">
+   var enemyNumber=1;
+   var score=0;
+   var health =100;
+    function leftArrowPressed() {
+        var element = document.getElementById("image1");
+        if(parseInt(element.style.left)>100){
+            element.style.left = parseInt(element.style.left) - 15 + 'px';
+        }
+    }
+
+    function rightArrowPressed() {
+        var element = document.getElementById("image1");
+        if(parseInt(element.style.left)<1300){
+            element.style.left = parseInt(element.style.left) + 5 + 'px';
+        }
+
+    }
+
+    function upArrowPressed() {
+        var element = document.getElementById("image1");
+        if(parseInt(element.style.top)>0){
+            element.style.top = parseInt(element.style.top) - 5 + 'px';
+        }
+    }
+
+    function downArrowPressed() {
+        var element = document.getElementById("image1");
+        if(parseInt(element.style.top)<550){
+            element.style.top = parseInt(element.style.top) + 5 + 'px';
+        }
+    }
+
+    function moveSelection(evt) {
+        switch (evt.keyCode) {
+            case 37:
+            leftArrowPressed();
+            break;
+            case 39:
+            rightArrowPressed();
+            break;
+            case 38:
+            upArrowPressed();
+            break;
+            case 40:
+            downArrowPressed();
+            break;
+            }
+        };
+
+function docReady()
+{ 
+  window.addEventListener('keydown', moveSelection);
+  document.getElementById('score').innerHTML = score;
+  document.getElementById('health').innerHTML = health;
+  checkDetection();
+}
+function checkDetection(){
+     var enemies = document.getElementsByClassName("enemy");
+    var plane= document.getElementById("image1");
+    for (i = 0; i < enemies.length; i++) {
+         element=enemies[i];
+        
+        if(isCollide(element,plane)){
+            
+            if(health>25){
+                element.style.display = "none";
+                health-=25;
+                document.getElementById('health').innerHTML = health;
+            }else{
+                 for (i = 0; i < enemies.length; i++) {
+                    element=enemies[i];
+                    element.style.display="none";
+                    plane.style.top="0px";
+                    plane.style.left="0px";
+                 }
+                if(!alert('Game Over.\nGame will restart.')){window.location.reload();}
+            }
+        }
+     }
+    setTimeout('addScore()',100);
+    setTimeout('checkDetection()',100);
+    
+}
+function addScore(){
+    var enemies = document.getElementsByClassName("enemy");
+    for (i = 0; i < enemies.length; i++) {
+         element=enemies[i];
+        if(element.offsetLeft < 0 ){
+            score++;
+            document.getElementById('score').innerHTML = Math.floor(score/10);
+            element.style.left="1900px";
+        }
+     }
+}
+function isCollide(a, b) {
+    return !(
+        ((a.offsetTop + a.clientHeight) < (b.offsetTop)) ||
+        (a.offsetTop > (b.offsetTop + b.clientHeight)) ||
+        ((a.offsetLeft + a.clientWidth) < b.offsetLeft) ||
+        (a.offsetLeft > (b.offsetLeft + b.clientWidth))
+    );
+}
+
+
+  </script>
+<style>
+
+
+@keyframes animatedBackground {
+	from { background-position: 0 0; }
+	to { background-position: 100% 0; }
+}
+
+#animate-area	{ 
+	width: 100%; 
+	height: 100%; 
+	position: absolute;
+	top:0;
+	left:0;
+	z-index:-10;
+	background-image: url(http://hdwallpapersfit.com/wp-content/uploads/2015/02/wallpaper-clouds-sky-rainbow-desktop-wallpaper.jpg);
+	
+	background-position: 0px 0px;
+	background-repeat: repeat-x;
+
+	animation: animatedBackground 10s linear infinite;
+}
+
+
+#image1 {
+    height: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+}
+#image1 img{
+	top: 100px;
+	max-width:100px;
+   	height: 80px;
+}
+img#image1 {
+    height: 80px;
+}
+
+img.enemy{
+    position: absolute;
+    max-height: 60px;
+}
+@-webkit-keyframes moveenemy1 {
+	0% {left: 1550px;}
+    100% {left: -100px;}
+}
+@-webkit-keyframes moveenemy2 {
+	0% {left: 1850px;}
+    100% {left: -100px;}
+}
+@-webkit-keyframes moveenemy3 {
+	0% {left: 2200px;}
+    100% {left: -100px;}
+}
+@-webkit-keyframes moveenemy4 {
+	0% {left: 2400px;}
+    100% {left: -100px;}
+}
+
+#enemy1{
+	top: 20px;
+	left:1550px;
+	-webkit-animation: moveenemy1 20s linear infinite;
+	-moz-animation: moveenemy1 20s linear infinite;
+	-o-animation: moveenemy1 20s linear infinite;
+}
+#enemy2{
+	top: 270px;
+	left:1550px;
+	-webkit-animation: moveenemy1 20s linear infinite;
+	-moz-animation: moveenemy1 20s linear infinite;
+	-o-animation: moveenemy1 20s linear infinite;
+}
+#enemy3{
+top: 520px;
+	left:1550px;
+	-webkit-animation: moveenemy1 20s linear infinite;
+	-moz-animation: moveenemy1 20s linear infinite;
+	-o-animation: moveenemy1 20s linear infinite;
+}
+#enemy4{
+top: 170px;
+	left:1850px;
+	-webkit-animation: moveenemy2 21s linear infinite;
+	-moz-animation: moveenemy2 21s linear infinite;
+	-o-animation: moveenemy2 21s linear infinite;
+}
+#enemy5{
+top: 450px;
+	left:1850px;
+	-webkit-animation: moveenemy2 21s linear infinite;
+	-moz-animation: moveenemy2 21s linear infinite;
+	-o-animation: moveenemy2 21s linear infinite;
+}
+#enemy6{
+top: 20px;
+	left:2200px;
+	-webkit-animation: moveenemy3 22s linear infinite;
+	-moz-animation: moveenemy3 22s linear infinite;
+	-o-animation: moveenemy3 22s linear infinite;
+}
+#enemy7{
+top: 270px;
+	left:2200px;
+	-webkit-animation: moveenemy3 22s linear infinite;
+	-moz-animation: moveenemy3 22s linear infinite;
+	-o-animation: moveenemy3 22s linear infinite;
+}
+#enemy8{
+top: 520px;
+	left:2200px;
+	-webkit-animation: moveenemy3 22s linear infinite;
+	-moz-animation: moveenemy3 22s linear infinite;
+	-o-animation: moveenemy3 22s linear infinite;
+}
+#enemy9{
+top: 200px;
+	left:2400px;
+	-webkit-animation: moveenemy4 24s linear infinite;
+	-moz-animation: moveenemy4 24s linear infinite;
+	-o-animation: moveenemy4 24s linear infinite;
+}
+#enemy10{
+top: 500px;
+	left:2400px;
+	-webkit-animation: moveenemy4 24s linear infinite;
+	-moz-animation: moveenemy4 24s linear infinite;
+	-o-animation: moveenemy4 24s linear infinite;
+}
+
+
+
+</style>
+  </head>
+
+  <body onload="docReady();" onkeydown="" onkeyup="moveSelection(event)" >
+  <img id="image1" src="http://3.bp.blogspot.com/-Nai81hqPo9Y/UjOFRcSp4AI/AAAAAAAAIS8/-Y3EG3QZ_JE/s1600/Airplane-3-png1-300x190.png" style="position: absolute; left: 15px;top: 15px;"  />
+
+<div id="animate-area">
+
+</div>
+<div id="enemies">
+    <img id="enemy1" class="enemy" src="http://vignette1.wikia.nocookie.net/angrybirds/images/7/7c/Footer_spaceship.png/revision/latest?cb=20131014163842"/>    
+    <img id="enemy2" class="enemy" src="http://vignette1.wikia.nocookie.net/angrybirds/images/7/7c/Footer_spaceship.png/revision/latest?cb=20131014163842"/>    
+    <img id="enemy3" class="enemy" src="http://vignette1.wikia.nocookie.net/angrybirds/images/7/7c/Footer_spaceship.png/revision/latest?cb=20131014163842"/>    
+    <img id="enemy4" class="enemy" src="http://vignette1.wikia.nocookie.net/angrybirds/images/7/7c/Footer_spaceship.png/revision/latest?cb=20131014163842"/>    
+    <img id="enemy5" class="enemy" src="http://vignette1.wikia.nocookie.net/angrybirds/images/7/7c/Footer_spaceship.png/revision/latest?cb=20131014163842"/>    
+    <img id="enemy6" class="enemy" src="http://vignette1.wikia.nocookie.net/angrybirds/images/7/7c/Footer_spaceship.png/revision/latest?cb=20131014163842"/>    
+    <img id="enemy7" class="enemy" src="http://vignette1.wikia.nocookie.net/angrybirds/images/7/7c/Footer_spaceship.png/revision/latest?cb=20131014163842"/>    
+    <img id="enemy8" class="enemy" src="http://vignette1.wikia.nocookie.net/angrybirds/images/7/7c/Footer_spaceship.png/revision/latest?cb=20131014163842"/>    
+    <img id="enemy9" class="enemy" src="http://vignette1.wikia.nocookie.net/angrybirds/images/7/7c/Footer_spaceship.png/revision/latest?cb=20131014163842"/>    
+    <img id="enemy10" class="enemy" src="http://vignette1.wikia.nocookie.net/angrybirds/images/7/7c/Footer_spaceship.png/revision/latest?cb=20131014163842"/>   
+      
+  </div>
+<div class="Score">
+    <p>Score :</p>
+    <p id="score">0</p>
+      
+    <p>Health :</p>
+    <p id="health">0</p>
+  </div>
+  </body>
+</html>
